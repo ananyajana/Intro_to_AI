@@ -1,0 +1,245 @@
+\documentstyle[12pt,fullpage,hw]{article}
+
+
+\def\semester{Vicky Prakash, Ananya Jana}
+\def\course{netID: vp407, aj611}
+
+%\setlength{\parskip}{0.3in}
+\begin{document}
+
+\hwhead{\#2 }{March 4}
+{\bf Problem 1:}\\
+{\bf Tree search with BFS}\\
+{\bf Search queue}\\
+S(start state)\\
+A, B\\
+B, B, C, G, S\\
+B, C, G, S, A, C, S\\
+C, G, S, A, C, S, A, C, S\\
+G, S, A, C, S, A, C, S\\
+In next step, goal state G is reached.\\ 
+\\
+Cost of this path = 2 + 2 + 1 + 3 = 8.\\ \\
+
+{\bf Tree search with DFS}\\
+{\bf Search queue}\\
+S(start state)\\
+B, A\\
+S, C, A, A\\
+B, A, C, A, A\\
+S, C, A, A, C, A, A\\
+Infinite loop as S gets enqueued multiple times. This is because the graph is undirected.\\
+As the search doesn't end, we dont have a path and associated cost.\\\\
+
+{\bf Tree search with Uniform Cost}\\
+{\bf Search queue}\\
+S\\
+A, B\\
+B, C, G\\
+C, G\\
+G\\
+
+In this case, same node is not enqueued twice, but its cost can be updated. 
+{\bf Search path}\\
+S-{\textgreater }A-{\textgreater }B-{\textgreater }C-{\textgreater }G  \\\\
+Cost of this path = 2 + 2 + 1 + 3 = 8.\\ \\
+
+{\bf Tree search with Greedy best first}\\
+{\bf Search queue}\\
+S\\
+A, B\\
+A, C\\
+A, G\\
+{\bf Search path}\\
+S-{\textgreater }B-{\textgreater }C-{\textgreater }G  \\\\
+Cost of this path = 6 + 1 + 3 = 10.\\ \\
+
+{\bf Tree search with $A^*$}\\
+{\bf Search queue}\\
+S\\
+A, B\\
+B, B, C, G, S\\
+B, C, G, S, A, C, S\\
+B, C, G, S, A, S, A, B, G\\
+{\bf Search path}\\
+S-{\textgreater }A-{\textgreater }B-{\textgreater }C-{\textgreater }G  \\\\
+Cost of this path = 2 + 2 + 1 + 3 = 8.\\ \\
+
+{\bf Graph search with BFS}\\
+{\bf Search queue}\\
+S(start state)\\
+A, B\\
+B, C, G\\
+C, G\\
+G\\
+\\
+Cost of this path = 2 + 8 = 10.\\ \\
+
+{\bf Graph search with DFS}\\
+{\bf Search queue}\\
+S(start state)\\
+B, A\\
+C, A\\
+G, A\\
+\\
+Cost of this path = 6 + 1 + 3 = 10.\\ \\
+
+{\bf Graph search with uniform cost}\\
+{\bf Search queue}\\
+S(start state)\\
+A, B\\
+B, C, G\\
+C, G\\
+G\\
+Cost of this path = 2 + 8 = 10.\\ \\
+
+{\bf Graph search with Greedy best first}\\
+{\bf Search queue}\\
+S\\
+A, B\\
+A, C\\
+A, G\\
+{\bf Search path}\\
+S-{\textgreater }B-{\textgreater }C-{\textgreater }G  \\\\
+Cost of this path = 6 + 1 + 3 = 10.\\ \\
+
+{\bf Graph search with $A^*$}\\
+{\bf Search queue}\\
+S\\
+A, B\\
+C, G, S, B\\
+G, S, B\\
+{\bf Search path}\\
+S-{\textgreater }A-{\textgreater }C-{\textgreater }G  \\\\
+Cost of this path = 2 + 4 + 3 = 9.\\ \\
+
+{\bf Problem 2:}\\
+{\bf a) Admissibility check:}\\
+$h_1$ and $h_2$ are admissible, meaing they are an underestimate of the actual cost.\\ \\
+
+{\bf i)} $h_{min}(n) = min\{{h_1}(n), {h_2}(n)\}$ So, $h_{min}(n)$ must be euqal to either ${h_1}(n)$ or ${h_2}(n)$. Hence $h_{min}(n)$ is an underestimate of the actual cost. This means $h_{min}$ is an admissible heuristics.\\ \\
+
+{\bf ii)} $h_{max}(n) = max\{{h_1}(n), {h_2}(n)\}$. So, $h_{max}(n)$ must be euqal to either ${h_1}(n)$ or ${h_2}(n)$.
+Hence $h_{max}(n)$ is an underestimate of the actual cost. This means $h_{max}$ is an admissible heuristics.\\ \\
+
+{\bf iii)} $h_{lin}(n) = w{h_1}(n)+ (1 -w){h_2}(n)$. So, the value $h_{lin}(n)$ lies between ${h_1}(n)$ or ${h_2}(n)$. Hence $h_{lin}(n)$ is an underestimate of the actual cost. This means $h_{lin}$ is an admissible heuristics.\\ \\
+
+{\bf a) Consistency check:}\\
+$h_1$ and $h_2$ are consistent, meaing they obey the triangle inequality rule.\\ 
+${h_1}(n) \leq c(n, n') + {h_1}(n')$  - (1)\\
+${h_2}(n) \leq c(n, n') + {h_2}(n')$  - (2)\\
+
+{\bf i)} $h_{min}(n) = min\{{h_1}(n), {h_2}(n)\}$ So, $h_{min}(n)$ must be euqal to either ${h_1}(n)$ or ${h_2}(n)$. Let's say $h_{min}(n) = {h_1}(n)$. Now, ${h_1}(n) \leq c(n, n') + {h_1}(n')$ from (1). And ${h_1}(n) \leq {h_2}(n) \leq c(n, n') + {h_2}(n')$. So  ${h_1}(n)  \leq c(n, n') + min\{{h_1}(n'), {h_2}(n')\}$ i.e. $h_{min}(n) \leq c(n, n') + min\{{h_1}(n'), {h_2}(n')\}$ or, $h_{min}(n) \leq c(n, n') + h_{min}(n')$. Hence, $h_{min}$ is a consistent heuristics.
+\\ \\
+
+{\bf ii)} $h_{max}(n) = max\{{h_1}(n), {h_2}(n)\}$. So, $h_{max}(n)$ must be euqal to either ${h_1}(n)$ or ${h_2}(n)$.
+Let's say $h_{max}(n) = {h_1}(n)$. Now, ${h_1}(n)  c(n, n') + {h_1}(n')$ from (1). And ${h_1}(n') \leq h_{max}(n)$. So  ${h_1}(n)  \leq c(n, n') + max\{{h_1}(n'), {h_2}(n')\}$ i.e. $h_{max}(n) \leq c(n, n') + max\{{h_1}(n'), {h_2}(n')\}$or, $h_{max}(n) \leq c(n, n') + h_{max}(n')$. Hence, $h_{min}$ is a consistent heuristics.\\ \\
+
+{\bf iii)} $h_{lin}(n) = w{h_1}(n)+ (1 -w){h_2}(n)$ \\ $\leq w* [c(n, n') + {h_1}(n')] + (1 - w)*[c(n, n') + {h_2}(n')]$ \\
+$\leq [(w + 1- w) * c(n, n')] + [w{h_1}(n') + (1 - w){h_2}(n')]$\\
+$\leq c(n, n') + h_{lin}(n')$\\
+Hence, $h_{lin}$ is a consistent heuristics.\\ \\
+
+{\bf b)}
+$w = 0$, $f(n) = 2g(n)$. This is uniform Cost search.\\
+$w = 1$, $f(n) = g(n) + h(n)$. This is $A^*$ search.\\
+$w = 2$, $f(n) = 2h(n)$. This is Greedy Best First search.\\
+We know that Uniform Cost search is optimal and $A^*$ tree search with admissble heuristic is also optimal. So, the algorithm is optimal for  $w = 0$ and $w = 1$.\\ \\
+
+{\bf c)} In this case, we are allowed to pick a non optimal node in the $A^*$ search. This may lead to an increase in the cost. However, if we use tree search, in future we may still pick the optimal node and enqueue it, whereas in graph search we will not enqueue the same node. So, with tree search we may still have an optimal solution at the end, but with graph search the cost is probably going to be higher. \\ \\
+
+{\bf Problem 3:}\\
+{\bf Input:} Grid where some of the squares are blank and some are shaded. List of words from dictionary.\\
+{\bf a) Formulation as a general search problem:}\\
+{\bf Start state:} Empty grid\\
+{\bf Goal state:} Grid filled with meaningful words. In this case, there can be multiple possible number of grids with valid words\\
+{\bf State space:} Intermediate states i.e. when the grid is filled partially with words\\
+{\bf Action:} Pick word from dictionary and fit into a blank keeping the already entered letters in place\\
+{\bf Transition model:} As we fill words from the dictionary into the grid, we state of the grid changes.\\
+{\bf Solution:} The sequence in which the grid n be filled with valid words. There can be multiple such choices and sequences.\\
+Since we can count the number of blanks, we have the number of words that will fit into the grid as well. We can pick words and start filling in blanks,preserving the already present letters. We can proceed in this way until we complete the puzzle or a contradiction is reached.\\ \\
+
+It is better to fill in the blanks one word at a time, because if we fill with one letter at a time, we might have some cases where the combination of letters do not give a meaningful word or the length of the word didn't fit in the blanks etc.\\ \\
+
+{\bf b) Formulation as a constraint satisfaction problem:}\\
+{\bf Variables:} The blanks in the grid \\
+{\bf Domains:} The dictionary.\\
+{\bf Constraints:} Already placed letters must be preserved.\\
+{\bf State:} Different states of the grid - empty, partially filled in multiple ways, complete grid.\\
+Here, we may use the Most constrained values or minimum remaining values heuristic for filling up the grid.\\ \\
+Using the words instead of letters would make more sense, because it will be easier to formulate the constraints with  words rather than letters.\\ \\
+
+{\bf c)} CSP might be a better formulation because in this case, the solution path is not so important. Rather, there is a clear set of constraints which must be satisfied. The number of constraints increase as we proceed in solving the problem.\\ \\
+
+{\bf Problem 4:}\\ Refer the scanned images {\it Problem4-part1.jpg} and {\it Problem4-part2.jpg}\\
+
+{\bf Problem 5:}\\
+{\bf a)} Refer the the scanned image {\it Problem5a.jpg} for the complete game tree.\\ \\
+{\bf b)} Refer the the scanned image {\it Problem5b-part1.jpg} and {\it Problem5b-part2.jpg} for the backed-up MinMas values.\\
+There are only two possible values the nodes marked with "?". So, we can assign each of the two values to that node in turns and derive the corresponsing MinMax values.\\ \\
+
+{\bf c)}The standard MinMax algorithm would fail becaseu wedon't know the MinMax values at the nodes marked with "?". As we discussed earlier, we can check in turns with all possible MinMax values for the node and obtain the MinMax values of the other nodes in the game tree.\\
+As long as we know all the possible values which the node marked with "?" can take up, our algorithm should work with games with loops. \\ \\
+
+{\bf d)} We find that the minimum number of squares possible to play such a game is 3. When there are 3 squares, B wins. But when there are 4 squares, A wins. If we try with multiple such puzzles with different number of squares greater than 2, we will find that any such puzzle can be reduced to either a 3 square game or a 4 square game. All such even number square games can be reduced to 4 square game and allsuch odd number square games can be reduced to 3 square game.\\ 
+Hence when n is even, A will win and when n is odd B will win.\\ \\
+
+{\bf Problem 6:}\\
+{\bf a)}
+$b$ is a Min node. Hence MinMax value at node $b$ = minimum of Minmax values of all children = $min\{4, 14, 6\}$ = $4$.\\
+$h$ is a Max node. Hence MinMax value at node $h$ = maximum of Minmax values of all children = $max\{1, 3\}$ = $3$.\\
+$i$ is a Max node. Hence MinMax value at node $i$ = maximum of Minmax values of all children = $max\{6, 15, 8\}$ = $15$.\\
+$j$ is a Max node. Hence MinMax value at node $j$ = maximum of Minmax values of all children = $max\{3, 4\}$ = $4$.\\
+$k$ is a Max node. Hence MinMax value at node $k$ = maximum of Minmax values of all children = $max\{3, 9\}$ = $9$.\\
+$l$ is a Max node. Hence MinMax value at node $l$ = maximum of Minmax values of all children = $max\{4, 12\}$ = $12$.\\
+$c$ is a Min node. Hence MinMax value at node $c$ = minimum of Minmax values of all children = $min\{h, i, j\}$ = $min\{3, 15, 4\}$ = $3$.\\
+$d$ is a Min node. Hence MinMax value at node $d$ = minimum of Minmax values of all children = $min\{k, l\}$ = $min\{9, 12\}$ = $9$.\\
+$a$ is a Min node. Hence MinMax value at node $a$ = maximum of Minmax values of all children = $max\{b, c, d\}$ = $max\{4, 3, 9\}$ = $9$.\\ \\
+
+The best sequence of moves at the max node a is {\bf \{a-d-k-t\}}.\\
+The utility is 9.\\ \\
+
+{\bf b)} With alpha-beta pruning, the only difference we find is that the children {\it i} and {\it j} of node {\it c} get pruned i.e. they are not visited. This reduces the total runtime of the algoithm.\\
+The nodes are visited in this order  {\bf \{a-b-e-f-g-c-h-m-n-d-k-t-u-l-v-w\}}.\\ \\
+
+{\bf Problem 7:}\\
+{\bf a) Dominant Strategies:}\\
+{\bf P1:}\\
+If player $P2$ play strategy $a$, then $2$ is a better choice for $P1$.\\
+If player $P2$ play strategy $b$, then $2$ is a better choice for $P1$. \\
+Hence $2$ is a dominant strategy for $P1$.\\ \\
+
+{\bf P2:}\\
+If player $P1$ play strategy $1$, then both $a$ and $b$ are same for $P2$.\\
+If player $P1$ play strategy $2$, then $b$ is a better choice for $P2$. \\
+If player $P1$ play strategy $3$, then $b$ is a better choice for $P2$. \\
+Hence $b$ is a dominant strategy for $P2$.\\ \\
+
+{\bf b) Nash Equilibrium:}\\
+The Nash equilibrium of the pay-off matrix is $(2, 3)$. If $P1$ changes his strategy from $2$ to either $1$ or $3$, his utility decreases(when $P2$ doesn't change his strategy) from $2$ to $1$ in both cases. If $P2$ changes his strategy from $b$ to $a$, his utility decreases(when $P1$ doesn't change his strategy) from $3$ to $-1$. Hence, here no player gains anything by changing his/her position alone.\\ \\
+
+{\bf Problem 8:}\\
+{\bf a) Conversion of the problem into knowledge base:}\\
+System is armed: {\bf R}\\
+System is in motion: {\bf M}\\
+Alarm sounds: {\bf A}\\
+There is a fire: {\bf F}\\ \\
+
+{\it If the system is armed and motion is detected, then the alarm will sound.}\\
+{\it If the alarm sounds, then the system has been armed or there has been a fire.}\\
+{\it Regardless of whether the system is armed, the alarm should go off when there is a fire.}\\
+{\it Motion is constantly detected.}\\
+\\
+{\bf Knowledge Base: }\\
+$R_1$: (R ${\wedge }$ M)  ={\textgreater } A \\
+$R_2$: A  ={\textgreater } (R ${\vee}$ F) \\
+$R_3$: F ={\textgreater } A \\
+$R_4$: M \\
+
+{\bf b) }{\it The alarm will sound if and only if the system is armed or there is a fire} \\i.e.
+A {\textless }={\textgreater } (R ${\vee}$ F) \\ \\
+{\bf Proof:}\\
+$R_5$: R ={\textgreater } A using $R_1$ and $R_4$\\
+$R_6$: (R ${\vee }$ F) ={\textgreater } A using $R_3$ and $R_5$\\
+$R_7$: A ${\textless }$=${\textgreater }$ (R ${\vee}$ F) using $R_2$ and $R_6$ [Bidirectional elimination]\\
+\end{document}
