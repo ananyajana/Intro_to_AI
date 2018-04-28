@@ -29,11 +29,13 @@ def plot_samples_from_cdf():
 	xvals = np.arange(0.0001, 5, 0.2)
 
 	
-	#yvals = (1/2) + (np.sqrt(1 - np.exp(-(np.power(xvals,2))/np.pi)))/2   -Cumulative Distribution Function F(x)
+	#yvals = (1/2) + (np.sqrt(1 - np.exp(-(np.power(xvals,2))/np.pi)))/2
 	
 	#xvals2 = np.arange(-5, -0.0001, 0.2)
 	#yvals2 = (1/2) - (np.sqrt(1 - np.exp(-(np.power(xvals,2))/np.pi)))/2
-	#yvals = (1/2) + ((zvals) ** np.sqrt(1 - np.exp(-(np.power(xvals,2))/np.pi)))/2
+	
+	#yvals = (1/2) + ((zvals) ** np.sqrt(1 - np.exp(-(np.power(xvals,2))/np.pi)))/2		#Cumulative Distribution Function F(x)
+	
 	#yvals = (1/2) + (sqrt(1 - exp(-(pow(xvals,2))/pi)))/2
 	#yvals = (np.sqrt(1 - np.exp(-(np.power(xvals,2))/np.pi)))/2
 	
