@@ -20,22 +20,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pdb
-
-def sign(x):
-	signs = []
-	for e in x:
-		#print("e: ", e)
-		if e < 0.1 and e > -0.1:
-		#if not e :
-			#print("0 ")
-			signs.append(0)
-		elif e > 0:
-			#print("1 ")
-			signs.append(1)
-		else:
-			#print("-1 ")
-			signs.append(-1)
-	return signs
 		
 
 def plot_samples_from_cdf():
@@ -43,19 +27,9 @@ def plot_samples_from_cdf():
 	sns.set()	#nice background for the plot
 	#plotting the function
 	xvals = np.arange(0.0001, 5, 0.2)
-	#i = 0
-	#for e in xvals:
-	#	i += 1
-	#print("i: ", i)
+
 	
-	zvals = sign(xvals)
-	#i = 0
-	#for e in zvals:
-	#	i += 1np.e
-	#	print("e: ", e)
-	#print("i: ", i)
-	
-	#yvals = (1/2) + (np.sqrt(1 - np.exp(-(np.power(xvals,2))/np.pi)))/2
+	#yvals = (1/2) + (np.sqrt(1 - np.exp(-(np.power(xvals,2))/np.pi)))/2   -Cumulative Distribution Function F(x)
 	
 	#xvals2 = np.arange(-5, -0.0001, 0.2)
 	#yvals2 = (1/2) - (np.sqrt(1 - np.exp(-(np.power(xvals,2))/np.pi)))/2
@@ -75,6 +49,7 @@ def plot_samples_from_cdf():
 	s = np.random.uniform(0,1,100)
 	
 	zvals3 = []
+	#taking care of the sign of the sample x
 	for x in s:
 		if x < 0.5:
 			print('less: ', x)
@@ -88,7 +63,7 @@ def plot_samples_from_cdf():
 	#plt.show()
 	
 	#np.log([1, np.e, np.e**2, 0]) natural log function example
-	xvals3 = zvals3 * np.sqrt(-np.pi * np.log([1 - (2 * s - 1)**2]))
+	xvals3 = zvals3 * np.sqrt(-np.pi * np.log([1 - (2 * s - 1)**2]))	# Inverse of the CDF function to calculate x
 
 	#for x, y in zip(s, xvals3):
 	#	print('x value', x)
