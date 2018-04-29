@@ -62,10 +62,6 @@ def plot_cdf():
 def plot_pdf():
 	x = Symbol('x')
 	sns.set()	#nice background for the plot
-
-	samples = 0
-	total = 100	# total number of valid x samples that we want to generate
-	x_arr = []	# array to hold the sample values of x	
 	
 	f1 = (1/2) + np.sqrt(1 - np.exp(-(np.power(x,2))/np.pi))/2		#Cumulative Distribution Function F(x) when x > 0
 	f1 = (1/2) - np.sqrt(1 - np.exp(-(np.power(x,2))/np.pi))/2		#Cumulative Distribution Function F(x) when x < 0
