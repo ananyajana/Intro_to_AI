@@ -9,8 +9,10 @@ Created on Fri Apr 20 06:14:13 2018
 # Program for random sampling from a CDF
 from math import exp, pow
 from sympy import *
+#import sympy as sp
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
 import pdb
 
 def sign(x):
@@ -67,8 +69,8 @@ def plot_pdf():
 	f1 = (1/2) - np.sqrt(1 - np.exp(-(np.power(x,2))/np.pi))/2		#Cumulative Distribution Function F(x) when x < 0
 	f3 = 1/2	#Cumulative Distribution Function F(x) when x = 0
 		
-	z1 = diff(f1, x, 1)	# Calculating PDF from the CDF by differentiation
-	z2 = diff(f2, x, 1)	# Calculating PDF from the CDF by differentiation
+	z1 = sp.diff(f1, x, 1)	# Calculating PDF from the CDF by differentiation
+	z2 = sp.diff(f2, x, 1)	# Calculating PDF from the CDF by differentiation
 
 	xvals = np.arange(0.00000001, 5, 0.2)
 	yvals = z1.subs(x, xval)			#Cumultive Distribution Function when x > 0
@@ -79,6 +81,29 @@ def plot_pdf():
 	plt.plot(xvals, yvals)
 	plt.plot(xvals2, yvals2)
 	plt.show()
+	
+
+def plot_pdf1():
+	x = sp.Symbol('x')
+	sns.set()	#nice background for the plot
+	
+	f1 = (1/2) + np.sqrt(1 - np.exp(-(np.power(x,2))/np.pi))/2		#Cumulative Distribution Function F(x) when x > 0
+	f1 = (1/2) - np.sqrt(1 - np.exp(-(np.power(x,2))/np.pi))/2		#Cumulative Distribution Function F(x) when x < 0
+	f3 = 1/2	#Cumulative Distribution Function F(x) when x = 0
+		
+	z1 = sp.diff(f1, x, 1)	# Calculating PDF from the CDF by differentiation
+	z2 = sp.diff(f2, x, 1)	# Calculating PDF from the CDF by differentiation
+
+	xvals = np.arange(0.00000001, 5, 0.2)
+	yvals = z1.subs(x, xval)			#Cumultive Distribution Function when x > 0
+	
+	xvals2 = np.arange(-5, -0.0000001, 0.2)
+	yvals2 = z2.subs(x, xvals2)
+	
+	plt.plot(xvals, yvals)
+	plt.plot(xvals2, yvals2)
+	plt.show()
+
 
 plot_cdf()
 plot_pdf()
