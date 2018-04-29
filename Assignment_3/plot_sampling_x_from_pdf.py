@@ -71,7 +71,7 @@ def plot_samples_from_pdf():
 	plt.xlabel('x values')
 	plt.ylabel('frequency of x values')
 	plt.title('my histogram')
-	plt.hist(xvals, bins = 50, range = (-5, 5), rwidth = 0.2)
+	plt.hist(x_arr, bins = 50, range = (-5, 5), rwidth = 0.2)
 	plt.plot()
 
 
