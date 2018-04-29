@@ -21,6 +21,7 @@ from sympy import *
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+#from random import *
 import time
 import pdb
 
@@ -91,6 +92,38 @@ def plot_pdf1():
 	plt.plot(xvals, yvals)
 	plt.plot(xvals2, yvals2)
 	plt.show()
+	
+	
+def plot_samples_from_pdf():
+	sns.set()	#nice background for the plot
+
+	samples = 0
+	total = 1000	# total number of valid x samples that we want to generate
+	x_arr = []	# array to hold the sample values of x	
+	
+	while samples <= total:
+		xvals = np.random.uniform(-5, 5)	# Generate a random sample from the range of x
+		yvals = (np.absolute(xvals)/np.pi)*(1/(np.sqrt(1 - np.exp(-(np.power(xvals,2))/np.pi))))*np.exp(-(np.power(xvals,2))/np.pi)
+		
+		U = np.random.uniform(0,1)
+	
+		if U <= yvals:
+			samples = samples + 1
+			x_arr.append(xvals)
+	
+
+	#count, bins, ignored = plt.hist(s, 15, normed=True)
+	#plt.plot(bins, np.ones_like(bins), linewidth=2, color='r')
+
+	
+	plt.xlabel('x values')
+	plt.ylabel('frequency of x values')
+	plt.title('my histogram')
+	plt.hist(x_arr, bins = 50, range = (-5, 5), rwidth = 0.8)
+	plt.plot()
+
+
 
 plot_cdf()
 plot_pdf()
+plot_samples_from_pdf()
