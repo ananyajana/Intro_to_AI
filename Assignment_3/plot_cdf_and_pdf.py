@@ -67,7 +67,9 @@ def plot_pdf():
 	sns.set()	#nice background for the plot
 	#plotting the function
 	xvals = np.arange(-5, 5, 0.2)
-	yvals = (np.absolute(xvals)/np.pi)*(1/(np.sqrt(1 - np.exp(-(np.power(xvals,2))/np.pi))))		#Probability Distribution Function when x > 0
+	
+	#Probability Distribution Function when x > 0
+	yvals = (np.absolute(xvals)/np.pi)*(1/(np.sqrt(1 - np.exp(-(np.power(xvals,2))/np.pi))))*np.exp(-(np.power(xvals,2))/np.pi)	
 	plt.plot(xvals, yvals)
 	plt.show()
 	time.sleep(10)
