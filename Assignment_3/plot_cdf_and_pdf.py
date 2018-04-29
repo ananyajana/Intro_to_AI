@@ -3,6 +3,14 @@
 """
 Created on Fri Apr 20 06:14:13 2018
 @author: ananya
+
+This program plots the given CDF and PDF of x w.r.t x.
+The question asks to sample x when the CDF is given.
+
+We know that for large enough sample, the values of x will
+be distributed according to the PDF of x. Hence, first we
+calculate the PDF of x from the CDF by differentiation.
+Then we sample x.
 """
 
 #Author: Ananya Jana
@@ -38,24 +46,11 @@ def plot_cdf():
 	sns.set()	#nice background for the plot
 	#plotting the function
 	xvals = np.arange(0.00000001, 5, 0.2)
-
-	
 	yvals = (1/2) + (np.sqrt(1 - np.exp(-(np.power(xvals,2))/np.pi)))/2			#Cumultive Distribution Function when x > 0
 	
 	xvals2 = np.arange(-5, -0.0000001, 0.2)
-	yvals2 = (1/2) - (np.sqrt(1 - np.exp(-(np.power(xvals,2))/np.pi)))/2
+	yvals2 = (1/2) - (np.sqrt(1 - np.exp(-(np.power(xvals,2))/np.pi)))/2			#Cumultive Distribution Function when x < 0
 	
-	#yvals = (1/2) + ((zvals) ** np.sqrt(1 - np.exp(-(np.power(xvals,2))/np.pi)))/2		#Cumulative Distribution Function F(x) when x < 0
-	
-	#yvals = (1/2) + (sqrt(1 - exp(-(pow(xvals,2))/pi)))/2
-	#yvals = (np.sqrt(1 - np.exp(-(np.power(xvals,2))/np.pi)))/2
-	
-	#xvals = np.arange(-2, 1, 0.01)
-	#yvals = (xvals**2 + 2)/3
-	
-	#yvals = np.cos(xvals)
-	#yvals = np.((xvals**2 + 2)/3)
-	#yvals = np.g(xvals)
 	plt.plot(xvals, yvals)
 	plt.plot(xvals2, yvals2)
 	plt.show()
