@@ -10,11 +10,18 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats
+import time
 
-num_instance=5000
+#Preprocessing training data
+start_idx = 0
+end_idx = 0
+total_train_samples = 5000
+x_percent = 100
+num_instance = int((total_train_samples * x_percent)/100)
+
 H=28
 W=28
-
+start_time = time.time()
 X_train=[[] for k in range(num_instance)]
 with open('digitdata/trainingimages') as f :
     
@@ -50,14 +57,22 @@ with open('digitdata/trainingimages') as f :
 X_train=np.array(X_train)
 # save as numpy format
 
+
 # read train targets
 Y_train=np.loadtxt('digitdata/traininglabels')
+end_idx = num_instance
+Y_train = np.array(Y_train[start_idx:end_idx])
+
+#time taken to preprocess the training data
+prep_train_time = time.time() - start_time
+print('time taken to preprocess the training data: ')
+print(x_percent, 'percent of data took ', prep_train_time)
 
 
-
-
-
+#Preprocessing test data
+############################################################
 num_instance=1000
+start_time = time.time()
 X_test=[[] for k in range(num_instance)]
 with open('digitdata/testimages') as f :
     
@@ -92,6 +107,11 @@ with open('digitdata/testimages') as f :
 X_test=np.array(X_test)
 Y_test=np.loadtxt('digitdata/testlabels')
 
+#time taken to preprocess the test data
+prep_test_time = time.time() - start_time
+print('time taken to preprocess the test data: ')
+print('data took ', prep_test_time)
+
 ################################
 (m, n, p) = X_train.shape
 print(m)
@@ -120,6 +140,7 @@ def computeFea(sample):
     f3=countZero(sample)
     #xx=[f1, f2, f3]
     xx=[f1, f2]
+    #xx=sample.reshape(28*28,1)
     return xx
 
 def createFeatureMatrix (XX):
@@ -131,10 +152,9 @@ def createFeatureMatrix (XX):
 
 ##############################################
 
-
-
+start_time = time.time()
 X_TrainFea = createFeatureMatrix(X_train)
-X_TestFea = createFeatureMatrix(X_test)
+#X_TestFea = createFeatureMatrix(X_test)
 
 
 m1, n1 =  X_TrainFea.shape
@@ -163,7 +183,13 @@ for epch in range(num_epochs):
             else:
                 if Scores[i] > 0:
                     Weights[:, i] = Weights[:, i] - epsilon*(row.T)
-                    
+
+training_time = time.time() - start_time
+
+
+###########################################
+#Checking the dataset against test data
+X_TestFea = createFeatureMatrix(X_test)                    
 Y_pred=np.array([-100 for k in range(len(X_TestFea))])
         
 for idx, row in enumerate(X_TestFea):
@@ -173,7 +199,38 @@ for idx, row in enumerate(X_TestFea):
     Y_pred[idx]=all_classes[predicted_class_index]
 
 accuracy = sum(sum([Y_test == Y_pred]))
+
+###############
+# Calculating standard deviation
+result_arr = np.ones(len(Y_test) - accuracy)
+zero_arr = np.zeros(accuracy)
+result_arr = np.concatenate((result_arr, zero_arr))
+
+result_mean=np.mean(result_arr)
+result_std=np.std(result_arr)
+
+print('################### STATISTICS #####################')
 print('Accuracy: ', accuracy, 'out of ', len(Y_test), 'percentage: ', (accuracy/len(Y_test))*100, '%' )
+
+print('time taken to preprocess the training data: ')
+print(x_percent, 'percent of data took ', prep_train_time)
+
+print('time taken to preprocess the test data: ')
+print('data took ', prep_test_time)
+
+print('time taken to train: ')
+print(x_percent, 'percent of data took ', training_time)
+
+print('\n\n\n')
+print('-------------nice format------------')
+print('Number of test data points: ', len(Y_test))
+#print('Total number of training points', total_train_samples)
+print('Percentage of training data used: ', x_percent, '%')
+print('Number of training data points: ', len(Y_train))
+print('Accuracy: ', (accuracy/len(Y_test))*100, '%' )
+print('Prediction Error: ', (100 - ((accuracy/len(Y_test))*100)), '%' )
+print('Training time: ', training_time, 'seconds')
+print('standard Deviation', result_std)
 
 """        
 means=np.zeros((NumClass,n1))
