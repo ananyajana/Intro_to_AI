@@ -189,22 +189,36 @@ def EuclideanDistane(r1, r2):
     np.sqrt(eucl_dist)  #optional state
     return eucl_dist
 
-
+k_val = 5
+start_idx1 = 0
+dim = 2
+dist_val = 0
 for idx, row in enumerate(X_TestFea):
     Prob=np.zeros(NumClass)
-    """
-    for i,c in enumerate(all_classes):
-        prob = 1
-        for fea in range(n1):
-            prob = prob*scipy.stats.norm(means[i, fea], stds[i, fea]).pdf(row[fea])
-            Prob[i]=prob
-        
-    """
-    dist = np.zeros(num_instance)
+    #dist = np.zeros(num_instance, dim)
+    #dist = [[]]
+    w, h = dim, num_instance;
+    dist = [[0 for x in range(w)] for y in range(h)]
+    
     for idx1, row1 in enumerate(X_TrainFea):
-        dist[idx1] = EuclideanDistane(row, row1)
+        dist[idx1][0] = EuclideanDistane(row, row1)
+        #dist_val = EuclideanDistane(row, row1)
+        dist[idx1][1] = Y_test[idx1]
+        #b = np.array([dist_val, value])
+        #dist = np.concatenate((dist, b), axis=0)
+        
+    #dist.sort(key = lambda x: x[0])
+    dist = sorted(dist, key = lambda x: x[0])
+        
     dist = np.array(dist)
-    np.sort(dist, axis=None)
+    #i = np.argmax(dist)
+    #dist = np.sort(dist, axis=None)
+    #i = np.argmax(dist)
+    # We select the top k neighbors
+    dist = np.array(dist[start_idx1:k_val])
+    
+    
+    
     predicted_class_index=np.argmax(Prob)  
     Y_pred[idx]=all_classes[predicted_class_index]
     
