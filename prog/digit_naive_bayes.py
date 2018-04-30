@@ -10,11 +10,18 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats
+import time
 
-num_instance=5000
+#Preprocessing training data
+start_idx = 0
+end_idx = 0
+total_train_samples = 5000
+x_percent = 10
+num_instance = int((total_train_samples * x_percent)/100)
+
 H=28
 W=28
-
+start_time = time.time()
 X_train=[[] for k in range(num_instance)]
 with open('digitdata/trainingimages') as f :
     
@@ -50,13 +57,18 @@ with open('digitdata/trainingimages') as f :
 X_train=np.array(X_train)
 # save as numpy format
 
+prep_time = time.time() - start_time
+print('time taken to preprocess the data: ')
+print(x_percent, 'percent of data took ', prep_time)
+
 # read train targets
 Y_train=np.loadtxt('digitdata/traininglabels')
+end_idx = num_instance
+Y_train = np.array(Y_train[start_idx:end_idx])
 
 
-
-
-
+#Preprocessing test data
+############################################################
 num_instance=1000
 X_test=[[] for k in range(num_instance)]
 with open('digitdata/testimages') as f :
@@ -117,8 +129,11 @@ def computeFea(sample):
     m,n=sample.shape
     f1=countX(sample)
     f2=countPlus(sample)
-    f3=countZero(sample)
-    xx=[f1, f2, f3]
+    #f3=countZero(sample)
+    #xx=[f1, f2, f3]
+    xx=[f1, f2]
+    #xx=sample.reshape(28*28,1)
+    #xx=list(xx)
     return xx
 
 def createFeatureMatrix (XX):
