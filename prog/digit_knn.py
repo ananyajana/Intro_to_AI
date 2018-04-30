@@ -189,6 +189,8 @@ def EuclideanDistane(r1, r2):
     np.sqrt(eucl_dist)  #optional state
     return eucl_dist
 
+
+start_time = time.time()
 k_val = 5
 start_idx1 = 0
 dim = 2
@@ -226,6 +228,7 @@ for idx, row in enumerate(X_TestFea):
     
 accuracy = sum(sum([Y_test == Y_pred]))
 
+exec_time = time.time() - start_time
 
 
 
@@ -259,7 +262,7 @@ print('Percentage of training data used: ', x_percent, '%')
 print('Number of training data points: ', len(Y_train))
 print('Accuracy: ', (accuracy/len(Y_test))*100, '%' )
 print('Prediction Error: ', (100 - ((accuracy/len(Y_test))*100)), '%' )
-print('Training time: ', training_time, 'seconds')
+print('Execution time: ', exec_time, 'seconds')
 print('standard Deviation', result_std)
 
 # another way of counting plus and hash
