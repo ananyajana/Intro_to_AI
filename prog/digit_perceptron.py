@@ -147,6 +147,8 @@ num_epochs = 5
 epsilon = 0.5
 Weights=np.random.rand(n1,NumClass) # hardcoded
 
+# add one more column to feature x to account for b. np.ones
+#np.array(AAA[Y_trainFea, Y_predFea])
 for epch in range(num_epochs):
     print("Starting epoch {0}".format(epch))
     epsilon=epsilon/10.0
