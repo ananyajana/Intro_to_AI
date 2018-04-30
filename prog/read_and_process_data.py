@@ -127,8 +127,6 @@ X_TestFea = createFeatureMatrix(X_test)
 
 m1, n1 =  X_TrainFea.shape
 
-
-
 all_classes, counts=np.unique(Y_train, return_counts=True)
 NumClass=len(all_classes)
 priors = counts/sum(counts)
@@ -143,17 +141,21 @@ for t in all_classes:
         stds[t, fea]=np.std(subset[:,fea])
         
 
-Y_pred=[-100 for k in range(len(X_test))]
+Y_pred=np.array([-100 for k in range(len(X_TestFea))])
 
-for idx, row in enumerate(X_test):
+for idx, row in enumerate(X_TestFea):
     Prob=np.zeros(NumClass)
     for i,c in enumerate(all_classes):
-        scipy.stats.norm(0, 1).pdf(0)
-        prob=0.01
-        Prob[i]=prob
+        prob = 1
+        for fea in range(n1):
+            prob = prob*scipy.stats.norm(means[i, fea], stds[i, fea]).pdf(row[fea])
+            Prob[i]=prob
         
-    predited_class=np.argmax(Prob)  
-    Y_pred[idx]=predited_class
+    predicted_class_index=np.argmax(Prob)  
+    Y_pred[idx]=all_classes[predicted_class_index]
+    
+accuracy = sum(sum([Y_test == Y_pred]))
+print('Accuracy: ', accuracy, 'out of ', len(Y_test))
 # another way of counting plus and hash
 """
 count_x1 = 0
