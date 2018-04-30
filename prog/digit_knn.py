@@ -16,7 +16,7 @@ import time
 start_idx = 0
 end_idx = 0
 total_train_samples = 5000
-x_percent = 10
+x_percent = 100
 num_instance = int((total_train_samples * x_percent)/100)
 
 H=28
@@ -192,7 +192,6 @@ def EuclideanDistane(r1, r2):
 k_val = 5
 start_idx1 = 0
 dim = 2
-dist_val = 0
 for idx, row in enumerate(X_TestFea):
     Prob=np.zeros(NumClass)
     #dist = np.zeros(num_instance, dim)
@@ -203,7 +202,7 @@ for idx, row in enumerate(X_TestFea):
     for idx1, row1 in enumerate(X_TrainFea):
         dist[idx1][0] = EuclideanDistane(row, row1)
         #dist_val = EuclideanDistane(row, row1)
-        dist[idx1][1] = Y_test[idx1]
+        dist[idx1][1] = Y_train[idx1]
         #b = np.array([dist_val, value])
         #dist = np.concatenate((dist, b), axis=0)
         
@@ -217,10 +216,12 @@ for idx, row in enumerate(X_TestFea):
     # We select the top k neighbors
     dist = np.array(dist[start_idx1:k_val])
     
+    classes, counts=np.unique(dist[:,1], return_counts=True)
     
-    
-    predicted_class_index=np.argmax(Prob)  
-    Y_pred[idx]=all_classes[predicted_class_index]
+    predicted_class_index=np.argmax(counts) 
+    classes[predicted_class_index]
+     
+    Y_pred[idx]=classes[predicted_class_index]
     
     
 accuracy = sum(sum([Y_test == Y_pred]))
