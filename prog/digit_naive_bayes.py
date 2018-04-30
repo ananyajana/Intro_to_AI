@@ -194,6 +194,14 @@ for idx, row in enumerate(X_TestFea):
     
 accuracy = sum(sum([Y_test == Y_pred]))
 
+###############
+# Calculating standard deviation
+result_arr = np.ones(len(Y_test) - accuracy)
+zero_arr = np.zeros(accuracy)
+result_arr = np.concatenate((result_arr, zero_arr))
+
+result_mean=np.mean(result_arr)
+result_std=np.std(result_arr)
 
 print('################### STATISTICS #####################')
 print('Accuracy: ', accuracy, 'out of ', len(Y_test), 'percentage: ', (accuracy/len(Y_test))*100, '%' )
@@ -214,7 +222,9 @@ print('Number of test data points: ', len(Y_test))
 print('Percentage of training data used: ', x_percent, '%')
 print('Number of training data points: ', len(Y_train))
 print('Accuracy: ', (accuracy/len(Y_test))*100, '%' )
-print('Training time: ', training_time)
+print('Prediction Error: ', (100 - ((accuracy/len(Y_test))*100)), '%' )
+print('Training time: ', training_time, 'seconds')
+print('standard Deviation', result_std)
 
 # another way of counting plus and hash
 
