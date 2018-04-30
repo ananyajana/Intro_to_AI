@@ -71,12 +71,12 @@ print(x_percent, 'percent of data took ', prep_train_time)
 
 #Preprocessing test data
 ############################################################
-num_instance=1000
+num_instance1=1000
 start_time = time.time()
-X_test=[[] for k in range(num_instance)]
+X_test=[[] for k in range(num_instance1)]
 with open('digitdata/testimages') as f :
     
-    for k in range(num_instance):
+    for k in range(num_instance1):
         #count_hash = 0
         #count_plus = 0
         datainstance=[[] for k in range(H)]

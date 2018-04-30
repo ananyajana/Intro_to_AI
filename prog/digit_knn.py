@@ -180,19 +180,39 @@ training_time = time.time() - start_time
 X_TestFea = createFeatureMatrix(X_test)
 Y_pred=np.array([-100 for k in range(len(X_TestFea))])
 
+
+def EuclideanDistane(r1, r2):
+    eucl_dist = 0
+    for fea in range(n1):
+        eucl_dist = eucl_dist + (r1[fea] - r2[fea])**2
+    
+    np.sqrt(eucl_dist)  #optional state
+    return eucl_dist
+
+
 for idx, row in enumerate(X_TestFea):
     Prob=np.zeros(NumClass)
+    """
     for i,c in enumerate(all_classes):
         prob = 1
         for fea in range(n1):
             prob = prob*scipy.stats.norm(means[i, fea], stds[i, fea]).pdf(row[fea])
             Prob[i]=prob
         
+    """
+    dist = np.zeros(num_instance)
+    for idx1, row1 in enumerate(X_TrainFea):
+        dist[idx1] = EuclideanDistane(row, row1)
+    dist = np.array(dist)
+    np.sort(dist, axis=None)
     predicted_class_index=np.argmax(Prob)  
     Y_pred[idx]=all_classes[predicted_class_index]
     
     
 accuracy = sum(sum([Y_test == Y_pred]))
+
+
+
 
 ###############
 # Calculating standard deviation
