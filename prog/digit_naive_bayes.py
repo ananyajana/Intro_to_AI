@@ -217,6 +217,7 @@ print(x_percent, 'percent of data took ', training_time)
 
 print('\n\n\n')
 print('-------------nice format------------')
+print('--------Digit Recognition with Naive Bayes----------\n')
 print('Number of test data points: ', len(Y_test))
 #print('Total number of training points', total_train_samples)
 print('Percentage of training data used: ', x_percent, '%')
