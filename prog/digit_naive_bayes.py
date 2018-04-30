@@ -57,19 +57,22 @@ with open('digitdata/trainingimages') as f :
 X_train=np.array(X_train)
 # save as numpy format
 
-prep_time = time.time() - start_time
-print('time taken to preprocess the data: ')
-print(x_percent, 'percent of data took ', prep_time)
 
 # read train targets
 Y_train=np.loadtxt('digitdata/traininglabels')
 end_idx = num_instance
 Y_train = np.array(Y_train[start_idx:end_idx])
 
+#time taken to preprocess the training data
+prep_train_time = time.time() - start_time
+print('time taken to preprocess the training data: ')
+print(x_percent, 'percent of data took ', prep_train_time)
+
 
 #Preprocessing test data
 ############################################################
 num_instance=1000
+start_time = time.time()
 X_test=[[] for k in range(num_instance)]
 with open('digitdata/testimages') as f :
     
@@ -103,6 +106,11 @@ with open('digitdata/testimages') as f :
 
 X_test=np.array(X_test)
 Y_test=np.loadtxt('digitdata/testlabels')
+
+#time taken to preprocess the test data
+prep_test_time = time.time() - start_time
+print('time taken to preprocess the test data: ')
+print('data took ', prep_test_time)
 
 ################################
 (m, n, p) = X_train.shape
@@ -148,7 +156,7 @@ def createFeatureMatrix (XX):
 
 
 X_TrainFea = createFeatureMatrix(X_train)
-X_TestFea = createFeatureMatrix(X_test)
+#X_TestFea = createFeatureMatrix(X_test)
 
 m1, n1 =  X_TrainFea.shape
 
@@ -166,6 +174,9 @@ for t in all_classes:
         stds[t, fea]=np.std(subset[:,fea])
         
 
+###########################################
+#Checking the dataset against test data
+X_TestFea = createFeatureMatrix(X_test)
 Y_pred=np.array([-100 for k in range(len(X_TestFea))])
 
 for idx, row in enumerate(X_TestFea):
@@ -179,8 +190,17 @@ for idx, row in enumerate(X_TestFea):
     predicted_class_index=np.argmax(Prob)  
     Y_pred[idx]=all_classes[predicted_class_index]
     
+    
 accuracy = sum(sum([Y_test == Y_pred]))
+print('################### STATISTICS #####################')
 print('Accuracy: ', accuracy, 'out of ', len(Y_test), 'percentage: ', (accuracy/len(Y_test))*100, '%' )
+
+print('time taken to preprocess the training data: ')
+print(x_percent, 'percent of data took ', prep_train_time)
+
+print('time taken to preprocess the test data: ')
+print('data took ', prep_test_time)
+
 # another way of counting plus and hash
 
 """
