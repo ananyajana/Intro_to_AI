@@ -154,7 +154,7 @@ def createFeatureMatrix (XX):
 ##############################################
 
 
-
+start_time = time.time()
 X_TrainFea = createFeatureMatrix(X_train)
 #X_TestFea = createFeatureMatrix(X_test)
 
@@ -173,6 +173,7 @@ for t in all_classes:
         means[t,fea]=np.mean(subset[:,fea])
         stds[t, fea]=np.std(subset[:,fea])
         
+training_time = time.time() - start_time
 
 ###########################################
 #Checking the dataset against test data
@@ -192,6 +193,8 @@ for idx, row in enumerate(X_TestFea):
     
     
 accuracy = sum(sum([Y_test == Y_pred]))
+
+
 print('################### STATISTICS #####################')
 print('Accuracy: ', accuracy, 'out of ', len(Y_test), 'percentage: ', (accuracy/len(Y_test))*100, '%' )
 
@@ -200,6 +203,9 @@ print(x_percent, 'percent of data took ', prep_train_time)
 
 print('time taken to preprocess the test data: ')
 print('data took ', prep_test_time)
+
+print('time taken to train: ')
+print(x_percent, 'percent of data took ', training_time)
 
 # another way of counting plus and hash
 
