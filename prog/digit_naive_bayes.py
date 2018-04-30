@@ -207,6 +207,15 @@ print('data took ', prep_test_time)
 print('time taken to train: ')
 print(x_percent, 'percent of data took ', training_time)
 
+print('\n\n\n')
+print('-------------nice format------------')
+print('Number of test data points: ', len(Y_test))
+#print('Total number of training points', total_train_samples)
+print('Percentage of training data used: ', x_percent, '%')
+print('Number of training data points: ', len(Y_train))
+print('Accuracy: ', (accuracy/len(Y_test))*100, '%' )
+print('Training time: ', training_time)
+
 # another way of counting plus and hash
 
 """
