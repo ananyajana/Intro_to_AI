@@ -107,12 +107,18 @@ def countX(sample):
     m,n=sample.shape   
     return sum(sum(sample==1))
 
+def countZero(sample):
+    m,n=sample.shape   
+    return sum(sum(sample==0))
+
+
 
 def computeFea(sample):
     m,n=sample.shape
     f1=countX(sample)
     f2=countPlus(sample)
-    xx=[f1, f2]
+    f3=countZero(sample)
+    xx=[f1, f2, f3]
     return xx
 
 def createFeatureMatrix (XX):
@@ -157,6 +163,7 @@ for idx, row in enumerate(X_TestFea):
 accuracy = sum(sum([Y_test == Y_pred]))
 print('Accuracy: ', accuracy, 'out of ', len(Y_test))
 # another way of counting plus and hash
+
 """
 count_x1 = 0
 count_x2 = 0
