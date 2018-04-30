@@ -16,7 +16,7 @@ H=28
 W=28
 
 X_train=[[] for k in range(num_instance)]
-with open('digitdata/trainingimages') as f :
+with open('facedata/trainingimages') as f :
     
     for k in range(num_instance):
         #count_hash = 0
@@ -51,7 +51,7 @@ X_train=np.array(X_train)
 # save as numpy format
 
 # read train targets
-Y_train=np.loadtxt('digitdata/traininglabels')
+Y_train=np.loadtxt('facedata/traininglabels')
 
 
 
@@ -90,7 +90,7 @@ with open('digitdata/testimages') as f :
         
 
 X_test=np.array(X_test)
-Y_test=np.loadtxt('digitdata/testlabels')
+Y_test=np.loadtxt('facedata/testlabels')
 
 ################################
 (m, n, p) = X_train.shape
@@ -129,8 +129,6 @@ def createFeatureMatrix (XX):
     return np.array(X_fea)
 
 ##############################################
-
-
 
 X_TrainFea = createFeatureMatrix(X_train)
 X_TestFea = createFeatureMatrix(X_test)
