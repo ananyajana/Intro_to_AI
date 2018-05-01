@@ -121,11 +121,11 @@ print(p)
 
 def countPlus(sample):
     m,n=sample.shape
-    return sum(sum(sample==2))
+    return sum(sum(sample==1))
 
 def countX(sample):
     m,n=sample.shape   
-    return sum(sum(sample==1))
+    return sum(sum(sample==2))
 
 def countZero(sample):
     m,n=sample.shape   
