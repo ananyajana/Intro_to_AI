@@ -178,8 +178,10 @@ for epch in range(num_epochs):
         true_label = Y_train[idx]
         
         if int(true_label) == 1 and Scores < 0:
+            #print('mismatch on +ve')
             Weights = Weights + epsilon*(row.T)
         if int(true_label) == 0 and Scores > 0:
+            #print('mismatch on -ve')
             Weights = Weights - epsilon*(row.T)
 
 training_time = time.time() - start_time
