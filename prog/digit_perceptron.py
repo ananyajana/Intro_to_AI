@@ -166,25 +166,27 @@ NumClass=len(all_classes)
 priors = counts/sum(counts)
 
 num_epochs = 5 
-epsilon = 0.5
+epsilon = 0.2
 Weights=np.random.rand(n1,NumClass) # hardcoded
+b = np.ones((1, NumClass))
+#Weights = np.append(Weights, b)
+Weights = np.concatenate((Weights, b))
 
 # add one more column to feature x to account for b. np.ones
 #np.array(AAA[Y_trainFea, Y_predFea])
 for epch in range(num_epochs):
     print("Starting epoch {0}".format(epch))
-    epsilon=epsilon/10.0
+    #epsilon=epsilon/10.0
     for idx, row in enumerate(X_TrainFea):
+        row = np.append(row, 1)
         Scores=np.dot(row.T, Weights)
         true_label = Y_train[idx]
         
-        for i, c in enumerate(all_classes):
-            if c == true_label:
-                if Scores[i] < 0:
-                    Weights[:, i] = Weights[:, i] - epsilon*(row.T)
-            else:
-                if Scores[i] > 0:
-                    Weights[:, i] = Weights[:, i] - epsilon*(row.T)
+        max_val_idx = np.argmax(Scores)
+        if max_val_idx != int(true_label):
+            Weights[:, max_val_idx] = Weights[:, max_val_idx] - epsilon*(row.T)
+            # increase the score of the correct label
+            Weights[:, int(true_label)] = Weights[:, int(true_label)] + epsilon*(row.T)
 
 training_time = time.time() - start_time
 
@@ -195,6 +197,7 @@ X_TestFea = createFeatureMatrix(X_test)
 Y_pred=np.array([-100 for k in range(len(X_TestFea))])
         
 for idx, row in enumerate(X_TestFea):
+    row = np.append(row, 1)
     Scores=np.dot(row.T, Weights)
     # predicted label is the maximum score
     predicted_class_index=np.argmax(Scores)  
@@ -225,7 +228,7 @@ print(x_percent, 'percent of data took ', training_time)
 
 print('\n\n\n')
 print('-------------nice format------------')
-print('--------Digit Recognition with K Nearest Neighbors----------\n')
+print('--------Digit Recognition with Perceptron----------\n')
 print('Number of test data points: ', len(Y_test))
 #print('Total number of training points', total_train_samples)
 print('Percentage of training data used: ', x_percent, '%')
