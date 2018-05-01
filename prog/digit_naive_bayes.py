@@ -74,6 +74,8 @@ print(x_percent, 'percent of data took ', prep_train_time)
 num_instance1=1000
 start_time = time.time()
 X_test=[[] for k in range(num_instance1)]
+
+#with open('digitdata/validationimages') as f :
 with open('digitdata/testimages') as f :
     
     for k in range(num_instance1):
@@ -106,6 +108,7 @@ with open('digitdata/testimages') as f :
 
 X_test=np.array(X_test)
 Y_test=np.loadtxt('digitdata/testlabels')
+#Y_test=np.loadtxt('digitdata/validationlabels')
 
 #time taken to preprocess the test data
 prep_test_time = time.time() - start_time
