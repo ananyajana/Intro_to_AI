@@ -128,8 +128,8 @@ def countZero(sample):
 
 def computeFea(sample):
     m,n=sample.shape
-    #f1=countX(sample)
-    f2=countPlus(sample)
+    f1=countX(sample)
+    #f2=countPlus(sample)
     #f3=countZero(sample)
     #xx=[f1, f2, f3]
     xx=[f1]
