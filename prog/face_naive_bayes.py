@@ -68,10 +68,11 @@ print(x_percent, 'percent of data took ', prep_train_time)
 #Preprocessing test data
 ############################################################
 num_instance1=150
+#num_instance1=301
 start_time = time.time()
 X_test=[[] for k in range(num_instance1)]
-with open('facedata/facedatatest') as f :
-    
+#with open('facedata/facedatatest') as f :
+with open('facedata/facedatavalidation') as f :   
     for k in range(num_instance1):
         #count_hash = 0
         #count_plus = 0
@@ -98,8 +99,8 @@ with open('facedata/facedatatest') as f :
         
 
 X_test=np.array(X_test)
-Y_test=np.loadtxt('facedata/facedatatestlabels')
-
+#Y_test=np.loadtxt('facedata/facedatatestlabels')
+Y_test=np.loadtxt('facedata/facedatavalidationlabels')
 #time taken to preprocess the test data
 prep_test_time = time.time() - start_time
 print('time taken to preprocess the test data: ')
